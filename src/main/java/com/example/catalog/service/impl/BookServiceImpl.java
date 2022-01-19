@@ -13,7 +13,7 @@ public class BookServiceImpl implements BookService {
     private HashMap<Long, Book> bookHashMap = new HashMap<>();
 
     private void init() {
-        bookHashMap.put(1L, new Book("Властелин колец", "Джон Р.Р. Толкин", "Фантастика", 5, 6, new BigDecimal("5.6")));
+        bookHashMap.put(1L, new Book("5-5454-34343-34-1", "Артур в стране чудес", "Витек Пирожков", 368, 625, new BigDecimal("15.45")));
     }
 
     public HashMap<Long, Book> book() {
