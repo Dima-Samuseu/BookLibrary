@@ -15,7 +15,12 @@ public class BookDeserializer extends JsonDeserializer<Book> {
     public Book deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
         ObjectCodec objectCodec = jsonParser.getCodec();
         JsonNode node = objectCodec.readTree(jsonParser);
-        return new Book(node.get("isbn").textValue(), node.get("name").textValue(), node.get("author").textValue(),
-                node.get("numberOfPages").intValue(), node.get("weight").intValue(), node.get("price").decimalValue());
+        return new Book(
+                node.get("isbn").textValue(),
+                node.get("name").textValue(),
+                node.get("author").textValue(),
+                node.get("numberOfPages").intValue(),
+                node.get("weight").intValue(),
+                node.get("price").decimalValue());
     }
 }

@@ -8,11 +8,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-@Component
+@Entity
+@Table(name = "BOOK")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -20,6 +22,9 @@ import java.math.BigDecimal;
 @JsonDeserialize(using = BookDeserializer.class)
 public class Book {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     @NotBlank(message = "Fill in the field \"isbn\"")
     private String isbn;
     @NotBlank(message = "Fill in the field \"name\"")
@@ -32,5 +37,13 @@ public class Book {
     private int weight;
     @NotNull(message = "Fill in the field \"price\"")
     private BigDecimal price;
-    
+
+    public Book(String isbn, String name, String author, int numberOfPages, int weight, BigDecimal price) {
+        this.isbn = isbn;
+        this.name = name;
+        this.author = author;
+        this.numberOfPages = numberOfPages;
+        this.weight = weight;
+        this.price = price;
+    }
 }

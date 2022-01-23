@@ -2,15 +2,15 @@ package com.example.catalog.service;
 
 import com.example.catalog.model.Book;
 
-import java.util.HashMap;
+import java.util.List;
 
 public interface BookService {
 
-    HashMap<Long, Book> book();
+    Book findOne(Long id);
 
-    HashMap<Long, Book> save(Book book);
+    List<Book> findAll();
 
-    HashMap<Long, Book> edit(Long id, Book book);
+    Book save(Book book);
 
-    HashMap<Long, Book> delete(Long id);
+    void remove(Long id);
 }

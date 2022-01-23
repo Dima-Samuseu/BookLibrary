@@ -1,7 +1,9 @@
 package com.example.catalog.service.impl;
 
 import com.example.catalog.model.Book;
+import com.example.catalog.repository.BookRepository;
 import com.example.catalog.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -10,39 +12,26 @@ import java.util.*;
 @Service
 public class BookServiceImpl implements BookService {
 
-    private HashMap<Long, Book> bookHashMap = new HashMap<>();
+    @Autowired
+    private BookRepository bookRepository;
 
-    private void init() {
-        bookHashMap.put(1L, new Book("5-5454-34343-34-1", "Артур в стране чудес", "Витек Пирожков", 368, 625, new BigDecimal("15.45")));
+    @Override
+    public Book findOne(Long id) {
+        return bookRepository.getById(id);
     }
 
-    public HashMap<Long, Book> book() {
-        if (bookHashMap.isEmpty()) {
-            init();
-            return bookHashMap;
-        }
-        return bookHashMap;
+    @Override
+    public List<Book> findAll() {
+        return bookRepository.findAll();
     }
 
-    public HashMap<Long, Book> save(Book book) {
-        if (bookHashMap.isEmpty()) {
-            bookHashMap.put(1L, book);
-            return bookHashMap;
-        } else {
-            bookHashMap.put(Collections.max(bookHashMap.keySet()) + 1, book);
-            return bookHashMap;
-        }
+    @Override
+    public Book save(Book book) {
+        return bookRepository.save(book);
     }
 
-    public HashMap<Long, Book> edit(Long id, Book book) {
-        if (bookHashMap.containsKey(id))
-            bookHashMap.put(id, book);
-        return bookHashMap;
-    }
-
-    public HashMap<Long, Book> delete(Long id) {
-        if (bookHashMap.containsKey(id))
-            bookHashMap.remove(id);
-        return bookHashMap;
+    @Override
+    public void remove(Long id) {
+    bookRepository.deleteById(id);
     }
 }
