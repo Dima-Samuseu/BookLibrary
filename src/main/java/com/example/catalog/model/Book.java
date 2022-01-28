@@ -6,15 +6,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Component;
+import org.springframework.data.annotation.Id;
 
-import javax.persistence.*;
+
+//import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "BOOK")
+//@Entity
+//@Table(name = "BOOK")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -22,8 +23,9 @@ import java.math.BigDecimal;
 @JsonDeserialize(using = BookDeserializer.class)
 public class Book {
 
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotBlank(message = "Fill in the field \"isbn\"")
     private String isbn;

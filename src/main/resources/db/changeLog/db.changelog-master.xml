@@ -1,0 +1,24 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog">
+
+    <changeSet id="create-table-book" author="Dzmitry">
+        <createTable tableName="book">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="isbn" type="varchar(64)"/>
+            <column name="name" type="varchar(64)"/>
+            <column name="author" type="varchar(64)"/>
+            <column name="number_of_pages" type="int">
+                <constraints unique="true"/>
+            </column>
+            <column name="weight" type="int">
+                <constraints unique="true"/>
+            </column>
+            <column name="price" type="decimal">
+                <constraints unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+</databaseChangeLog>

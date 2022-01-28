@@ -1,0 +1,42 @@
+#spring:
+#  liquibase:
+#    change-log: classpath:db/changelog/db.changelog-master.xml
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-create-table-book.yaml
+  - changeSet:
+      id: 1
+      author: dzmitry
+      changes:
+        - createTable:
+            tableName: book
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: isbn
+                  type: varchar(50)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(512)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: author
+                  type: varchar(50)
+              - column:
+                  name: number_of_pages
+                  type: INT
+              - column:
+                  name: weight
+                  type: INT
+              - column:
+                  name: price
+                  type: DECIMAL

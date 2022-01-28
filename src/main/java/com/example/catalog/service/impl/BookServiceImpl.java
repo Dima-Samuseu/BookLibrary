@@ -3,6 +3,7 @@ package com.example.catalog.service.impl;
 import com.example.catalog.model.Book;
 import com.example.catalog.repository.BookRepository;
 import com.example.catalog.service.BookService;
+import com.example.catalog.util.ModelUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,17 +18,22 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book findOne(Long id) {
-        return bookRepository.getById(id);
+        return  bookRepository.findById(id).get();
     }
 
     @Override
     public List<Book> findAll() {
-        return bookRepository.findAll();
+        return(List<Book>) bookRepository.findAll();
     }
 
     @Override
-    public Book save(Book book) {
-        return bookRepository.save(book);
+    public void save(Book book) {
+//        if (ModelUtils.idIsNotPresent(book.getId())) {
+//            bookRepository.create(book);
+//        } else {
+//            bookRepository.update(book);
+//        }
+        bookRepository.save(book);
     }
 
     @Override
