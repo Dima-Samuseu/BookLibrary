@@ -16,9 +16,9 @@ public class BookMapper implements RowMapper<Book> {
         book.setIsbn(rs.getString("isbn"));
         book.setName(rs.getString("name"));
         book.setAuthor(rs.getString("author"));
-        book.setNumberOfPages(rs.getInt("numberOfPage"));
+        book.setNumberOfPages(rs.getInt("number_of_pages"));
         book.setWeight(rs.getInt("weight"));
-        book.setPrice(rs.getBigDecimal("weight"));
+        book.setPrice(rs.getBigDecimal("price"));
         return book;
     }
 }

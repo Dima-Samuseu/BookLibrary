@@ -1,23 +1,20 @@
 package com.example.catalog.repository;
 
 import com.example.catalog.model.Book;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
+public interface BookRepository  {
 
-public interface BookRepository extends CrudRepository<Book, Long> {
+    Book findById(Long id);
 
-//    void setDataSource(DataSource dataSource);
-//
-//    Book getById(Long id);
-//
-//    List<Book> findAll();
-//
-//    void create(Book book);
-//
-//    void update(Book book);
-//
-//    void remove(Long id);
+    List<Book> findAll();
+
+    void create(Book book);
+
+    void update(Book book);
+
+    void remove(Long id);
 }

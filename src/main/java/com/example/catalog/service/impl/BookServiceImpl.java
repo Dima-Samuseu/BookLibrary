@@ -7,8 +7,7 @@ import com.example.catalog.util.ModelUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.util.*;
+import java.util.List;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -18,26 +17,25 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book findOne(Long id) {
-        return  bookRepository.findById(id).get();
+        return  bookRepository.findById(id);
     }
 
     @Override
     public List<Book> findAll() {
-        return(List<Book>) bookRepository.findAll();
+        return bookRepository.findAll();
     }
 
     @Override
     public void save(Book book) {
-//        if (ModelUtils.idIsNotPresent(book.getId())) {
-//            bookRepository.create(book);
-//        } else {
-//            bookRepository.update(book);
-//        }
-        bookRepository.save(book);
+        if (ModelUtils.idIsNotPresent(book.getId())) {
+            bookRepository.create(book);
+        } else {
+            bookRepository.update(book);
+        }
     }
 
     @Override
     public void remove(Long id) {
-    bookRepository.deleteById(id);
+    bookRepository.remove(id);
     }
 }
