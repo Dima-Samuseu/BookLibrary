@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Getter
 @Setter
-@JsonDeserialize(using = BookDeserializer.class)
+//@JsonDeserialize(using = BookDeserializer.class)
 public class Book {
 
 //    @Id
