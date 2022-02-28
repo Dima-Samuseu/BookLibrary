@@ -10,6 +10,8 @@ public interface BookService {
 
     List<Book> findAll();
 
+    List<Book> findByAuthor(String author);
+
     void save(Book book);
 
     void remove(Long id);

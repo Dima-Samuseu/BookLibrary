@@ -12,6 +12,8 @@ public interface BookRepository  {
 
     List<Book> findAll();
 
+    List<Book> findByAuthor(String author);
+
     void create(Book book);
 
     void update(Book book);

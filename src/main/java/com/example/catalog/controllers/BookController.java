@@ -1,9 +1,10 @@
 package com.example.catalog.controllers;
 
 import com.example.catalog.exception.EntityNotFoundException;
+import com.example.catalog.external.openlibrary.OpenLibraryService;
 import com.example.catalog.model.Book;
+import com.example.catalog.service.BookOpenLibraryService;
 import com.example.catalog.service.BookService;
-import com.example.catalog.service.OpenLibraryService;
 import com.example.catalog.util.ModelUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,9 +22,8 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
-
     @Autowired
-    OpenLibraryService openLibraryService;
+    private BookOpenLibraryService bookOpenLibraryService;
 
     @GetMapping(path = "/getBook")
     public ResponseEntity<List<Book>> getBooks() {
@@ -77,7 +77,7 @@ public class BookController {
 
     public List getBooks(@PathVariable String authorName) {
 
-        return openLibraryService.getBooks(authorName);
+        return bookOpenLibraryService.getBookDtoByAuthor(authorName);
     }
 
 }
