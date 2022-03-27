@@ -81,6 +81,17 @@
 			<artifactId>swagger-annotations</artifactId>
 			<version>1.6.4</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jfree/jfreechart -->
+		<dependency>
+			<groupId>org.jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.0.19</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jfree</groupId>
+			<artifactId>jfreesvg</artifactId>
+			<version>3.3</version>
+		</dependency>
     </dependencies>
 
 

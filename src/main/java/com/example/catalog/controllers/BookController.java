@@ -1,12 +1,14 @@
 package com.example.catalog.controllers;
 
-import com.example.catalog.exception.EntityNotFoundException;
-import com.example.catalog.external.openlibrary.OpenLibraryService;
+import com.example.catalog.dto.BookForAlfaBankDto;
+import com.example.catalog.exception.BookTitleNotFoundException;
+import com.example.catalog.exception.IncorrectDataException;
 import com.example.catalog.model.Book;
+import com.example.catalog.service.BookApfaBankService;
 import com.example.catalog.service.BookOpenLibraryService;
 import com.example.catalog.service.BookService;
-import com.example.catalog.util.ModelUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -15,69 +17,70 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-
+@AllArgsConstructor
 @RestController
 @Validated
+@RequestMapping("/book")
 public class BookController {
 
-    @Autowired
     private BookService bookService;
-    @Autowired
     private BookOpenLibraryService bookOpenLibraryService;
+    private BookApfaBankService bookApfaBankService;
 
-    @GetMapping(path = "/getBook")
+    @GetMapping("/get")
     public ResponseEntity<List<Book>> getBooks() {
-        List<Book> bookList =  bookService.findAll();
-        return ResponseEntity.ok().body(bookList);
+        return ResponseEntity
+                .ok()
+                .body(bookService.findAll());
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Book> getOneBook (@PathVariable("id") Long id) throws EntityNotFoundException{
-        if (ModelUtils.idIsNotPresent(id))
-            throw new EntityNotFoundException("id-" + id);
-        Book book = bookService.findOne(id);
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(book);
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Book> getOneBook (@PathVariable("id") Long id){
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(bookService.findOne(id));
     }
 
-    @PostMapping(path = "/addBook")
+    @PostMapping("/add")
     @ResponseBody
     public ResponseEntity<Book> addBook(@Valid @RequestBody Book requestBook) {
-        Book book = new Book(requestBook.getIsbn(), requestBook.getName(), requestBook.getAuthor(),
-                requestBook.getNumberOfPages(), requestBook.getWeight(), requestBook.getPrice());
-        bookService.save(book);
-        return ResponseEntity.status(201).body(book);
+        bookService.create(requestBook);
+        return ResponseEntity
+                .status(201)
+                .body(requestBook);
     }
 
-    @PutMapping(path = "/editBook/{id}")
+    @PutMapping("/edit/{id}")
     @ResponseBody
-    public ResponseEntity<Book> editBook(@PathVariable(value = "id") long id,@Valid @RequestBody Book requestBook) throws EntityNotFoundException {
-        Book book = bookService.findOne(id);
-        book.setIsbn(requestBook.getIsbn());
-        book.setName(requestBook.getName());
-        book.setAuthor(requestBook.getAuthor());
-        book.setNumberOfPages(requestBook.getNumberOfPages());
-        book.setWeight(requestBook.getWeight());
-        book.setPrice(requestBook.getPrice());
-        bookService.save(book);
-        return ResponseEntity.ok().body(book);
+    public ResponseEntity<Book> editBook(@PathVariable(value = "id") long id,@Valid @RequestBody Book requestBook) {
+        return ResponseEntity
+                .ok()
+                .body(bookService.update(requestBook, id));
     }
 
-    @DeleteMapping(path = "/deleteBook/{id}")
+    @DeleteMapping("/delete/{id}")
     @ResponseBody
-    public ResponseEntity<List<Book>> deleteBookBook(@PathVariable(value = "id") long id) throws EntityNotFoundException{
-        if (ModelUtils.idIsNotPresent(id))
-            throw new EntityNotFoundException("id-" + id);
+    public ResponseEntity<List<Book>> deleteBookBook(@PathVariable(value = "id") long id) {
         bookService.remove(id);
         return ResponseEntity.ok().body(bookService.findAll());
     }
 
 
 
-    @RequestMapping({ "/{authorName}" })
-
-    public List getBooks(@PathVariable String authorName) {
-
-        return bookOpenLibraryService.getBookDtoByAuthor(authorName);
+    @GetMapping({ "/{authorName}" })
+    public ResponseEntity<List> getBooks(@PathVariable String authorName) {
+        return ResponseEntity
+                .ok()
+                .body(bookOpenLibraryService.getBookDtoByAuthor(authorName));
     }
+
+    @GetMapping("/price/{title}")
+    public ResponseEntity<List<BookForAlfaBankDto>> getPrice(@PathVariable String title) {
+        return ResponseEntity
+                .ok()
+                .body(bookApfaBankService.getBookDtoByTitle(title));
+    }
+
 
 }

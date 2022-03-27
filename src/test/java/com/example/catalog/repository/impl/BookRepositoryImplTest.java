@@ -2,9 +2,7 @@ package com.example.catalog.repository.impl;
 
 import com.example.catalog.model.Book;
 import com.example.catalog.repository.BookRepository;
-import org.apache.catalina.Service;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -17,12 +15,8 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
 
 class BookRepositoryImplTest {
 
@@ -74,7 +68,7 @@ class BookRepositoryImplTest {
         Mockito.when(jdbcTemplate.queryForObject("SELECT * FROM BOOK where id=1", Book.class))
                 .thenReturn(new Book(1L, "34-45-56", "Rest", "Tom", 456, 565,new BigDecimal(45.6)));
 
-        assertEquals(new Book(1L, "34-45-56", "Rest", "Tom", 456, 565,new BigDecimal(45.6)), bookRepository.findById(1l));
+        assertEquals(new Book(1L, "34-45-56", "Rest", "Tom", 456, 565,new BigDecimal(45.6)), bookRepository.getOneBook(1l));
     }
     @Test
     void create() {

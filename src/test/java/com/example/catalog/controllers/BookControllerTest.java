@@ -1,6 +1,6 @@
 package com.example.catalog.controllers;
 
-import com.example.catalog.exception.EntityNotFoundException;
+import com.example.catalog.exception.IncorrectDataException;
 import com.example.catalog.model.Book;
 import com.example.catalog.service.BookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,7 +15,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Optional;
 
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -73,7 +72,7 @@ class BookControllerTest {
         mockMvc.perform(
                         get("/0"))
                 .andExpect(status().isNotFound())
-                .andExpect(mvcResult -> EntityNotFoundException.class.equals(mvcResult.getResolvedException().getClass()));
+                .andExpect(mvcResult -> IncorrectDataException.class.equals(mvcResult.getResolvedException().getClass()));
     }
 
     @Test

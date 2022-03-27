@@ -1,7 +1,6 @@
 package com.example.catalog.model;
 
-import com.example.catalog.util.BookDeserializer;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,35 +8,31 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
 
-//import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-//@Entity
-//@Table(name = "BOOK")
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-//@JsonDeserialize(using = BookDeserializer.class)
 public class Book {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
+
     @Id
     private Long id;
-    @NotBlank(message = "Fill in the field \"isbn\"")
+    @NotBlank()
     private String isbn;
-    @NotBlank(message = "Fill in the field \"name\"")
+    @NotBlank()
     private String name;
-    @NotBlank(message = "Fill in the field \"author\"")
+    @NotBlank()
     private String author;
-    @NotNull(message = "Fill in the field \"numberOfPages\"")
+    @NotNull()
     private int numberOfPages;
-    @NotNull(message = "Fill in the field \"weight\"")
+    @NotNull()
     private int weight;
-    @NotNull(message = "Fill in the field \"price\"")
+    @NotNull()
     private BigDecimal price;
 
     public Book(String isbn, String name, String author, int numberOfPages, int weight, BigDecimal price) {

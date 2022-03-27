@@ -1,4 +1,5 @@
-package com.example.catalog.external.openlibrary.config;
+package com.example.catalog.external.alfabank.config;
+
 
 import com.example.catalog.config.interceptor.CustomClientHttpRequestInterceptor;
 import lombok.Getter;
@@ -22,17 +23,17 @@ import javax.annotation.Resource;
 @ConfigurationProperties
 @Getter
 @Setter
-public class RestTemplateConfig {
+public class AlfaBankRestTemplateConfig {
 
-    @Value("${open-library.base-uri}")
+    @Value("${alfa-bank.base-uri}")
     private String url;
     /**
-     * RestTemplate with default URL "https://openlibrary.org"
+     * RestTemplate with default URL "https://ibapi.alfabank.by:8273"
      *
      * @param builder the builder
      * @return the rest template
      */
-    @Bean("openLibrary")
+    @Bean("alfaBank")
     @Resource
     public RestTemplate restTemplateAlfaBank(RestTemplateBuilder builder) {
         return builder
