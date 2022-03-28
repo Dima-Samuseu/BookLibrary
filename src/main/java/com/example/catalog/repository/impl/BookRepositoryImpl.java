@@ -5,7 +5,6 @@ import com.example.catalog.model.Book;
 import com.example.catalog.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -29,7 +28,7 @@ public class BookRepositoryImpl implements BookRepository {
 
     public List<Book> findByAuthor(String author) {
         String sql = "select * from book where author = ?";
-        return jdbcTemplate.query(sql, new Object[]{"%" + author + "%"}, new BeanPropertyRowMapper<>(Book.class));
+        return jdbcTemplate.query(sql, new Object[]{author}, new BookMapper());
     }
 
     public List<Book> findByName(String name) {
